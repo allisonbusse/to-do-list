@@ -53,3 +53,7 @@ li {
 .done {
     margin-right: 10px;
 }
+
+.delete {
+    background-color: none;
+}

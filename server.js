@@ -14,6 +14,29 @@ app.use(cors());
 app.use(express.static('public'));
 app.use(express.json());
 
+app.get('/api/items', (req, res) => {
+    const showAll = (req.query.show && req.query.show.toLowerCase() === 'all');
+    const where = showAll ? '' : 'WHERE complete = FALSE';
+
+    client.query(`
+        SELECT
+            id,
+            name,
+            complete
+        FROM items
+        ${where}
+        ORDER BY name;
+    `)
+        .then(result => {
+            res.json(result.rows);
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err.message || err
+            });
+        });
+});
+
 app.post('/api/items', (req, res) => {
     const item = req.body;
     client.query(`
