@@ -56,6 +56,7 @@ class App extends Component {
                 list.update({ items });
             })
             .catch(err => {
+                // eslint-disable-next-line no-console
                 console.log(err);
             });
     }

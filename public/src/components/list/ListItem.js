@@ -26,9 +26,9 @@ class ListItem extends Component {
 
         return /*html*/`
             <div class="list-item">
-                <button class="done">🗸</button>
-                <li>${item.name}</li>
-                <button class="delete">🗑</button>
+                <button class="done">DONE</button>
+                <li><span class="${item.complete ? 'complete' : ''}">${item.name}</span></li>
+                <button class="delete">🗑 Delete</button>
             </div>
         `;
     }

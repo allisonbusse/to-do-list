@@ -39,6 +39,20 @@ h1 {
     width: 300px;
 }
 
+button {
+    text-transform: uppercase;
+}
+
+.complete {
+    text-decoration: line-through;
+}
+
+#add-item {
+    background-color: #F77754;
+    padding: 8px; 
+    font-size: 14px;
+}
+
 li {
     list-style-type: none;
     flex-grow: 3;
@@ -54,6 +68,9 @@ li {
     margin-right: 10px;
 }
 
-.delete {
-    background-color: none;
+.delete, .done {
+    background-color: rgba(164, 209, 200, 0.7);
+    border: none;
+    font-size: 16px;
+    padding: 8px;
 }
