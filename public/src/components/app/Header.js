@@ -5,11 +5,15 @@ class Header extends Component {
 
     onRender(dom) {
         const logoutButton = dom.querySelector('#log-out');
+
+        if(window.pathname === 'auth.html') {
+            logoutButton.classList.add('hidden');
+        }
+
+
         logoutButton.addEventListener('click', () => {
-            console.log('hi!');
             store.removeToken();
             window.location = 'auth.html';
-            logoutButton.classList.add('hidden');
         });
     }
 

@@ -68,9 +68,10 @@ app.get('/api/items', (req, res) => {
 
 app.post('/api/items', (req, res) => {
     const item = req.body;
+
     client.query(`
         INSERT INTO items (name)
-        VALUES ($1)
+        VALUES ($2)
         RETURNING *;
     `,
     [item.name]

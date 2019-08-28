@@ -1,6 +1,5 @@
 import Component from '../Component.js';
 import ListItem from './ListItem.js';
-import store from '../../services/store.js';
 
 class ToDoList extends Component {
     
