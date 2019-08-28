@@ -6,11 +6,6 @@ class Header extends Component {
     onRender(dom) {
         const logoutButton = dom.querySelector('#log-out');
 
-        if(window.pathname === 'auth.html') {
-            logoutButton.classList.add('hidden');
-        }
-
-
         logoutButton.addEventListener('click', () => {
             store.removeToken();
             window.location = 'auth.html';
