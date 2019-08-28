@@ -1,5 +1,6 @@
 import Component from '../Component.js';
 import ListItem from './ListItem.js';
+import store from '../../services/store.js';
 
 class ToDoList extends Component {
     
@@ -12,11 +13,14 @@ class ToDoList extends Component {
             const listItem = new ListItem({ item, onUpdate, onRemove });
             list.appendChild(listItem.renderDOM());
         });
+
+        
     }
     
     renderHTML() {
         return /*html*/`
-            <section id="list-container"></section>
+            <section id="list-container">
+            </section>
         `;
     }
 }

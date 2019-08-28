@@ -3,6 +3,7 @@ import Header from './Header.js';
 import ItemForm from '../list/ItemForm.js';
 import ToDoList from '../list/ToDoList.js';
 import { getItems, addItem, updateItem, removeItem } from '../../services/list-api.js';
+import store from '../../services/store.js';
 
 class App extends Component {
     onRender(dom) {
@@ -59,6 +60,8 @@ class App extends Component {
                 // eslint-disable-next-line no-console
                 console.log(err);
             });
+
+
     }
 
     renderHTML() {
