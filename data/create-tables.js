@@ -11,7 +11,8 @@ client.query(`
         CREATE TABLE items (
             id SERIAL PRIMARY KEY NOT NULL,
             name VARCHAR(256) NOT NULL UNIQUE,
-            complete BOOLEAN NOT NULL DEFAULT FALSE
+            complete BOOLEAN NOT NULL DEFAULT FALSE,
+            user_id INTEGER NOT NULL REFERENCES users(id)
         );
         `)
     .then(

@@ -44,8 +44,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api', ensureAuth);
 
 app.get('/api/items', (req, res) => {
-    const showAll = (req.query.show && req.query.show.toLowerCase() === 'all');
-    const where = showAll ? '' : 'WHERE complete = FALSE';
 
     client.query(`
         SELECT
@@ -53,9 +51,11 @@ app.get('/api/items', (req, res) => {
             name,
             complete
         FROM items
-        ${where}
+        WHERE user_id = $1
         ORDER BY name;
-    `)
+    `,
+    [req.userId]
+    )
         .then(result => {
             res.json(result.rows);
         })
@@ -68,13 +68,14 @@ app.get('/api/items', (req, res) => {
 
 app.post('/api/items', (req, res) => {
     const item = req.body;
+    console.log(req);
 
     client.query(`
-        INSERT INTO items (name)
-        VALUES ($1)
+        INSERT INTO items (name, user_id)
+        VALUES ($1, $2)
         RETURNING *;
     `,
-    [item.name]
+    [item.name, req.userId]
     )
         .then(result => {
             res.json(result.rows[0]);
@@ -100,9 +101,10 @@ app.put('/api/items/:id', (req, res) => {
         SET name = $2,
             complete = $3
         WHERE id = $1
+        AND user_id = $4
         RETURNING *;
     `,
-    [id, item.name, item.complete]
+    [id, item.name, item.complete, req.userId]
     )
         .then(result => {
             res.json(result.rows[0]);
@@ -125,9 +127,10 @@ app.delete('/api/items/:id', (req, res) => {
     client.query(`
         DELETE FROM items
         WHERE id = $1
+        AND user_id = $2
         RETURNING *;
     `,
-    [id]
+    [id, req.userId]
     )
         .then(result => {
             res.json(result.rows[0]);
@@ -144,6 +147,12 @@ app.delete('/api/items/:id', (req, res) => {
         });
 });
 
+
+app.get('/api/test', (req, res) => {
+    res.json({
+        message: `the user's id is ${req.userId}`
+    });
+});
 
 app.listen(PORT, () => {
     console.log('server running on PORT', PORT);
